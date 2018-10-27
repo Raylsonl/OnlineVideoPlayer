@@ -1,0 +1,82 @@
+<html>
+
+<body>
+
+    <div id="main-input">
+        <textarea id="all-links" placeholder="Put video url's with one url on each line here" style="width:100%;height:500px;"></textarea>
+        <button id="btn-load">Load Videos</button>
+    </div>
+
+    <style>
+        embed {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+        }
+    </style>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="http://s3.spruto.org/embed/player.js"></script>
+    <script class="splayer">
+
+        $(document).on('click', '#btn-load', function () {
+            $urls = $('#all-links').val().split('\n');
+            $urls = $urls.filter(i => i.trim() != '');
+            console.log($urls);
+            asdasd = `{
+                    "title": $(videoDataList[index]).html().trim(),
+                    "video": [{
+                        "url": videoData.sources[i].file
+                    }`;
+            let playlist = [];
+            let epCount = 1;
+            $.each($urls, function (index, obj) {
+                playlist.push({
+                    "title": "Episode " + epCount,
+                    "video": [{
+                        "url": obj
+                    }]
+                });
+                epCount++;
+            });
+
+            startPlaylist(playlist);
+            $('#main-input').css('display', 'none');
+        });
+
+        function startPlaylist(playlist) {
+            var params = {
+                "playlist": playlist,
+                "uiLanguage": "en",
+                "width": 1024,
+                "height": 576,
+                "design": {
+                    "color": {
+                        "scheme": "dark",
+                        "buttonBg": "#333333",
+                        "buttonNormal": "#FFFFFF",
+                        "buttonHover": "#97A841"
+                    },
+                    "skinName": "transparent"
+                }, "behavior":
+                {
+                    "titleShow": [
+                        "beforePlay",
+                        "onPlay",
+                        "afterPlay"
+                    ],
+                    "autoplay": true,
+                    "beforePlay": "playlist",
+                    "afterPlay": "nextvideo"
+                }
+            };
+            player.embed(params);
+        };
+    </script>
+
+</body>
+
+</html>
