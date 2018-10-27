@@ -25,12 +25,6 @@
         $(document).on('click', '#btn-load', function () {
             $urls = $('#all-links').val().split('\n');
             $urls = $urls.filter(i => i.trim() != '');
-            console.log($urls);
-            asdasd = `{
-                    "title": $(videoDataList[index]).html().trim(),
-                    "video": [{
-                        "url": videoData.sources[i].file
-                    }`;
             let playlist = [];
             let epCount = 1;
             $.each($urls, function (index, obj) {
